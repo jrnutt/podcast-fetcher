@@ -1,10 +1,12 @@
-#!python
+#!/usr/bin/python3
 import xml.etree.ElementTree as ET
 import urllib.request
 import os
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
+
+downloaddir = "downloads"
 
 with open("last-fetch","r") as f:
     earliest = float(f.readline())
@@ -36,7 +38,7 @@ if (OPMLroot.tag == "opml"):
                     date = localDate.timestamp()
                     if (date < earliest):
                         continue
-                    filename = "{0:02d}-{1}.mp3".format(count,"".join(x for x in title.text if x.isalnum()))
+                    filename = "{2}/{0:02d}-{1}.mp3".format(count,"".join(x for x in title.text if x.isalnum()),downloaddir)
                     count = count + 1
                     url = enclosure.get('url')
                     print("downloading {0} from {1} to {2}".format(title.text, url, filename))
