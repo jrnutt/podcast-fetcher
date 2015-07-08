@@ -8,9 +8,12 @@ from datetime import timezone
 
 downloaddir = "downloads"
 
-with open("last-fetch","r") as f:
-    earliest = float(f.readline())
-f.close()
+try:
+    with open("last-fetch","r") as f:
+        earliest = float(f.readline())
+        f.close()
+except:
+    earliest = 0.0
 
 OPMLtree = ET.parse("podcasts_opml.xml")
 OPMLroot = OPMLtree.getroot()
